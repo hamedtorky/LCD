@@ -9,7 +9,7 @@ def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 setup(
-    name = "LCD_ORANGEPI",
+    name = "lcdorangepi",
     version = "0.0.1",
     author = "Hamed Torky",
     author_email = "hamedtorky2@gmail.com",
@@ -17,7 +17,7 @@ setup(
     license = "AVA",
     keywords = "LCD 16x2 i2c",
     url = "",
-    packages=['LCD_ORANGEPI', 'tests'],
+    packages=['lcdorangepi', 'example'],
     long_description=read('README'),
     classifiers=[
         "Development Status :: 1 - Alpha",
