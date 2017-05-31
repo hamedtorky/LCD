@@ -30,6 +30,7 @@ class LCD():
         # Open I2C interface
         # bus = smbus.SMBus(0)  # Rev 1 Pi uses 0
         self.bus = smbus.SMBus(0)  # Rev 2 Pi uses 1
+        self.lcd_init()
 
     def lcd_init(self):
         # Initialise display
@@ -66,12 +67,21 @@ class LCD():
         self.bus.write_byte(self.I2C_ADDR, (bits & ~self.ENABLE))
         time.sleep(self.E_DELAY)
 
-    def lcd_string(self, message, line):
+    def display_string(self, message, line):
         # Send string to display
-
+        _line = 1
         message = message.ljust(self.LCD_WIDTH, " ")
 
-        self.lcd_byte(line, self.LCD_CMD)
+        if line == 1:
+            _line = self.LCD_LINE_1
+        elif line == 2:
+            _line = self.LCD_LINE_2
+        elif line == 3:
+            _line = self.LCD_LINE_3
+        elif line == 4:
+            _line = self.LCD_LINE_4
+
+        self.lcd_byte(_line, self.LCD_CMD)
 
         for i in range(self.LCD_WIDTH):
             self.lcd_byte(ord(message[i]), self.LCD_CHR)
